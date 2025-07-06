@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonFritKot.be - Trouvez les meilleures friteries de Belgique</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                <span>MonFritKot</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#accueil" class="nav-link active">Accueil</a>
+                <a href="annuaire.html" class="nav-link">Annuaire</a>
+                <a href="galerie.html" class="nav-link">Galerie</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="#" class="nav-link login-btn">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="cart-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="cart-count">3</span>
+                </div>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <video autoplay muted loop class="hero-video">
+                <source src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Trouvez vos</span>
+                    <span class="title-highlight">meilleures friteries</span>
+                    <span class="title-line">en Belgique</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Découvrez les trésors culinaires belges près de chez vous
+                </p>
+                
+                <!-- Search Bar Améliorée -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <div class="search-input-group">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="searchInput" placeholder="Nom de friterie, spécialité..." class="search-input">
+                        </div>
+                        <div class="location-input-group">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <input type="text" id="locationInput" placeholder="Ville, code postal..." class="location-input">
+                            <button class="gps-btn" id="gpsBtn" title="Utiliser ma position">
+                                <i class="fas fa-crosshairs"></i>
+                            </button>
+                        </div>
+                        <button class="search-btn" id="searchBtn">
+                            <span>Rechercher</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Filtres Rapides -->
+                    <div class="quick-filters">
+                        <button class="filter-btn active" data-filter="all">
+                            <i class="fas fa-utensils"></i>
+                            Toutes
+                        </button>
+                        <button class="filter-btn" data-filter="traditional">
+                            <i class="fas fa-crown"></i>
+                            Traditionnelles
+                        </button>
+                        <button class="filter-btn" data-filter="gourmet">
+                            <i class="fas fa-star"></i>
+                            Gourmet
+                        </button>
+                        <button class="filter-btn" data-filter="24h">
+                            <i class="fas fa-clock"></i>
+                            24h/24
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Animées -->
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="250">0</div>
+                    <div class="stat-label">Friteries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="15000">0</div>
+                    <div class="stat-label">Avis clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="98">0</div>
+                    <div class="stat-label">% Satisfaction</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-text">Découvrir</div>
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À Propos Modernisée -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">MonFritKot.be</span>
+                <h2 class="section-title">L'annuaire de référence des friteries belges</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-description">
+                        Découvrez le meilleur de la tradition belge avec notre annuaire complet des friteries. 
+                        Que vous soyez amateur de frites croustillantes ou passionné de gastronomie belge, 
+                        notre plateforme vous aide à trouver les meilleures adresses à travers tout le pays.
+                    </p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Géolocalisation</h4>
+                                <p>Trouvez les friteries les plus proches de vous</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Avis vérifiés</h4>
+                                <p>Notes et commentaires de vrais clients</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Horaires en temps réel</h4>
+                                <p>Informations toujours à jour</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Application mobile</h4>
+                                <p>Accès facile depuis votre smartphone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-visual">
+                    <div class="visual-card">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=400&h=300&fit=crop" alt="Friterie traditionnelle">
+                        <div class="visual-overlay">
+                            <div class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Friteries Populaires -->
+    <section class="popular-friteries" id="annuaire">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Nos coups de cœur</span>
+                <h2 class="section-title">Friteries les plus populaires</h2>
+            </div>
+            
+            <div class="friteries-grid">
+                <!-- Friterie Card 1 -->
+                <div class="friterie-card" data-aos="fade-up">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=400&h=250&fit=crop" alt="Friterie Chez Marcel">
+                        <div class="card-badge">
+                            <i class="fas fa-crown"></i>
+                            Premium
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="card-status open">Ouvert</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Friterie Chez Marcel</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8 (127 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Bruxelles, 1000</span>
+                            <span class="distance">0.8 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">Frites maison</span>
+                            <span class="specialty-tag">Sauce andalouse</span>
+                            <span class="specialty-tag">Mitraillette</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friterie Card 2 -->
+                <div class="friterie-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=250&fit=crop" alt="La Baraque à Frites">
+                        <div class="card-badge new">
+                            <i class="fas fa-sparkles"></i>
+                            Nouveau
+                        </div>
+                        <button class="favorite-btn active">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <div class="card-status closed">Fermé</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">La Baraque à Frites</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.2 (89 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Liège, 4000</span>
+                            <span class="distance">1.2 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">Bio</span>
+                            <span class="specialty-tag">Végétarien</span>
+                            <span class="specialty-tag">Sauce maison</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€€€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friterie Card 3 -->
+                <div class="friterie-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&h=250&fit=crop" alt="Friterie du Coin">
+                        <button class="favorite-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="card-status open">Ouvert 24h</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Friterie du Coin</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.6 (203 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Gand, 9000</span>
+                            <span class="distance">2.1 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">24h/24</span>
+                            <span class="specialty-tag">Livraison</span>
+                            <span class="specialty-tag">Traditionnel</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-footer">
+                <a href="annuaire.html" class="btn-primary large">
+                    Voir toutes les friteries
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Galerie -->
+    <section class="gallery-section" id="galerie">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Galerie Photos</span>
+                <h2 class="section-title">Découvrez nos friteries en images</h2>
+            </div>
+            
+            <div class="gallery-preview">
+                <div class="gallery-grid-preview">
+                    <div class="gallery-item-preview">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=300&h=200&fit=crop" alt="Friterie extérieur">
+                        <div class="gallery-overlay-preview">
+                            <h4>Extérieurs authentiques</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-item-preview">
+                        <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=300&h=200&fit=crop" alt="Frites dorées">
+                        <div class="gallery-overlay-preview">
+                            <h4>Frites parfaites</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-item-preview">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=300&h=200&fit=crop" alt="Intérieur moderne">
+                        <div class="gallery-overlay-preview">
+                            <h4>Intérieurs chaleureux</h4>
+                        </div>
+                    </div>
+                    <div class="gallery-item-preview">
+                        <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=300&h=200&fit=crop" alt="Spécialités">
+                        <div class="gallery-overlay-preview">
+                            <h4>Spécialités belges</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-footer">
+                <a href="galerie.html" class="btn-primary large">
+                    Voir toute la galerie
+                    <i class="fas fa-images"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Blog -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Blog</span>
+                <h2 class="section-title">Actualités et conseils friteries</h2>
+            </div>
+            
+            <div class="blog-preview">
+                <div class="blog-grid-preview">
+                    <article class="blog-card-preview">
+                        <div class="blog-image-preview">
+                            <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=300&h=200&fit=crop" alt="Article blog">
+                            <div class="blog-category-preview">Actualités</div>
+                        </div>
+                        <div class="blog-content-preview">
+                            <h3>Les friteries belges à l'honneur</h3>
+                            <p>Découvrez comment les friteries traditionnelles continuent d'innover...</p>
+                            <div class="blog-meta-preview">
+                                <span><i class="fas fa-calendar"></i> 15 Mars 2024</span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card-preview">
+                        <div class="blog-image-preview">
+                            <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=300&h=200&fit=crop" alt="Article blog">
+                            <div class="blog-category-preview">Conseils</div>
+                        </div>
+                        <div class="blog-content-preview">
+                            <h3>Comment reconnaître de bonnes frites ?</h3>
+                            <p>Les secrets pour identifier des frites parfaites : couleur dorée...</p>
+                            <div class="blog-meta-preview">
+                                <span><i class="fas fa-calendar"></i> 12 Mars 2024</span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="blog-card-preview">
+                        <div class="blog-image-preview">
+                            <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=300&h=200&fit=crop" alt="Article blog">
+                            <div class="blog-category-preview">Recettes</div>
+                        </div>
+                        <div class="blog-content-preview">
+                            <h3>Recette sauce andalouse maison</h3>
+                            <p>Apprenez à préparer la célèbre sauce andalouse comme dans les meilleures...</p>
+                            <div class="blog-meta-preview">
+                                <span><i class="fas fa-calendar"></i> 8 Mars 2024</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            
+            <div class="section-footer">
+                <a href="blog.html" class="btn-primary large">
+                    Lire tous les articles
+                    <i class="fas fa-newspaper"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Carte Interactive -->
+    <section class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Localisation</span>
+                <h2 class="section-title">Trouvez votre friterie sur la carte</h2>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <div class="map-content">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Carte Interactive</h3>
+                        <p>Explorez toutes les friteries de Belgique sur notre carte interactive</p>
+                        <button class="btn-primary">
+                            Ouvrir la carte
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="map-filters">
+                    <h4>Filtrer par région</h4>
+                    <div class="region-buttons">
+                        <button class="region-btn active">Toute la Belgique</button>
+                        <button class="region-btn">Bruxelles</button>
+                        <button class="region-btn">Flandre</button>
+                        <button class="region-btn">Wallonie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                        <span>MonFritKot</span>
+                    </div>
+                    <p class="footer-description">
+                        Votre guide de référence pour découvrir les meilleures friteries de Belgique.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="annuaire.html">Annuaire</a></li>
+                        <li><a href="galerie.html">Galerie</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Régions</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Bruxelles</a></li>
+                        <li><a href="#">Flandre</a></li>
+                        <li><a href="#">Wallonie</a></li>
+                        <li><a href="#">Toutes les villes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Recevez les dernières nouveautés</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Votre email">
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 MonFritKot.be - Tous droits réservés</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Mentions légales</a>
+                        <a href="#">Politique de confidentialité</a>
+                        <a href="#">CGU</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

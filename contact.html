@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - MonFritKot.be</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styles spécifiques au contact */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 120px 0 80px;
+            text-align: center;
+            color: var(--dark-color);
+        }
+        
+        .contact-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .contact-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xxl);
+            align-items: start;
+        }
+        
+        .contact-info {
+            background: var(--light-color);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .contact-info h2 {
+            font-size: 1.8rem;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-lg);
+            color: var(--dark-color);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            transition: var(--transition-fast);
+        }
+        
+        .info-item:hover {
+            background: var(--gray-light);
+        }
+        
+        .info-icon {
+            background: var(--primary-color);
+            color: var(--light-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .info-content h3 {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark-color);
+        }
+        
+        .info-content p {
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+        
+        .contact-form {
+            background: var(--light-color);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .contact-form h2 {
+            font-size: 1.8rem;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-lg);
+            color: var(--dark-color);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark-color);
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition-fast);
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-submit {
+            background: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--border-radius-md);
+            font-size: 1.1rem;
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .form-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .form-submit:disabled {
+            background: var(--gray-medium);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .social-contact {
+            margin-top: var(--spacing-xl);
+            text-align: center;
+        }
+        
+        .social-contact h3 {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-md);
+            color: var(--dark-color);
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+        
+        .social-btn {
+            background: var(--gray-light);
+            color: var(--dark-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: var(--transition-fast);
+        }
+        
+        .social-btn:hover {
+            background: var(--primary-color);
+            color: var(--light-color);
+            transform: translateY(-2px);
+        }
+        
+        .faq-section {
+            margin-top: var(--spacing-xxl);
+            background: var(--gray-light);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-xl);
+        }
+        
+        .faq-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xl);
+            color: var(--dark-color);
+        }
+        
+        .faq-item {
+            background: var(--light-color);
+            margin-bottom: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            background: none;
+            border: none;
+            width: 100%;
+            padding: var(--spacing-lg);
+            text-align: left;
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-fast);
+        }
+        
+        .faq-question:hover {
+            background: var(--gray-light);
+        }
+        
+        .faq-answer {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+            color: var(--gray-dark);
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        .faq-icon {
+            transition: var(--transition-fast);
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .success-message {
+            background: var(--success-color);
+            color: var(--light-color);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .success-message.show {
+            display: flex;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-xl);
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-buttons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                <span>MonFritKot</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="annuaire.html" class="nav-link">Annuaire</a>
+                <a href="galerie.html" class="nav-link">Galerie</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <a href="#" class="nav-link login-btn">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="cart-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="cart-count">3</span>
+                </div>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Contactez-nous</h1>
+            <p>Une question, une suggestion ou envie d'ajouter votre friterie ? Nous sommes là pour vous aider !</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <!-- Informations de contact -->
+                <div class="contact-info">
+                    <h2>Nos coordonnées</h2>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Adresse</h3>
+                            <p>
+                                MonFritKot SPRL<br>
+                                Avenue Louise 123<br>
+                                1050 Bruxelles, Belgique
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Téléphone</h3>
+                            <p>
+                                +32 2 123 45 67<br>
+                                <small>Lundi - Vendredi : 9h - 18h</small>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Email</h3>
+                            <p>
+                                contact@monfritkot.be<br>
+                                <small>Réponse sous 24h</small>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Horaires</h3>
+                            <p>
+                                Lundi - Vendredi : 9h - 18h<br>
+                                Samedi : 10h - 16h<br>
+                                Dimanche : Fermé
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Réseaux sociaux -->
+                    <div class="social-contact">
+                        <h3>Suivez-nous</h3>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-btn" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-btn" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-btn" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulaire de contact -->
+                <div class="contact-form">
+                    <h2>Envoyez-nous un message</h2>
+                    
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.</span>
+                    </div>
+                    
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">Prénom *</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Nom *</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" id="email" name="email" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Téléphone</label>
+                                <input type="tel" id="phone" name="phone" class="form-input">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Sujet *</label>
+                            <select id="subject" name="subject" class="form-select" required>
+                                <option value="">Choisissez un sujet</option>
+                                <option value="ajout-friterie">Ajouter ma friterie</option>
+                                <option value="modification">Modifier des informations</option>
+                                <option value="probleme-technique">Problème technique</option>
+                                <option value="partenariat">Proposition de partenariat</option>
+                                <option value="presse">Demande presse</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" class="form-textarea" rows="6" placeholder="Décrivez votre demande en détail..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i>
+                            Envoyer le message
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2>Questions Fréquentes</h2>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment ajouter ma friterie sur MonFritKot ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Pour ajouter votre friterie, utilisez le formulaire de contact en sélectionnant "Ajouter ma friterie" comme sujet. Nous vous recontacterons rapidement pour finaliser l'ajout avec toutes les informations nécessaires (photos, horaires, spécialités, etc.).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>L'inscription sur MonFritKot est-elle gratuite ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, l'inscription de base est entièrement gratuite ! Nous proposons également des options premium pour une meilleure visibilité (badge premium, photos supplémentaires, mise en avant). Contactez-nous pour plus d'informations.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment modifier les informations de ma friterie ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Contactez-nous via le formulaire en précisant les modifications souhaitées. Nous mettons à jour les informations dans les 24h. Bientôt, vous pourrez gérer votre fiche directement via un espace propriétaire.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment fonctionnent les avis clients ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Les avis sont laissés par de vrais clients après leur visite. Nous vérifions leur authenticité pour garantir la fiabilité des notes. Les propriétaires peuvent répondre aux avis pour maintenir le dialogue avec leur clientèle.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Proposez-vous un service de livraison ?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>MonFritKot est un annuaire qui référence les friteries. Certaines friteries proposent leurs propres services de livraison, que nous indiquons sur leur fiche. Nous ne gérons pas directement les commandes ou livraisons.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                        <span>MonFritKot</span>
+                    </div>
+                    <p class="footer-description">
+                        Votre guide de référence pour découvrir les meilleures friteries de Belgique.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="annuaire.html">Annuaire</a></li>
+                        <li><a href="galerie.html">Galerie</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Régions</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Bruxelles</a></li>
+                        <li><a href="#">Flandre</a></li>
+                        <li><a href="#">Wallonie</a></li>
+                        <li><a href="#">Toutes les villes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Recevez les dernières nouveautés</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Votre email">
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 MonFritKot.be - Tous droits réservés</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Mentions légales</a>
+                        <a href="#">Politique de confidentialité</a>
+                        <a href="#">CGU</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Script spécifique au contact
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            // Gestion du formulaire de contact
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Animation du bouton
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+                
+                // Simulation d'envoi
+                setTimeout(() => {
+                    // Affichage du message de succès
+                    successMessage.classList.add('show');
+                    
+                    // Réinitialisation du formulaire
+                    contactForm.reset();
+                    
+                    // Restauration du bouton
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
+                    
+                    // Masquer le message après 5 secondes
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                    
+                }, 2000);
+            });
+
+            // Gestion de la FAQ
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Fermer tous les autres items
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').classList.remove('active');
+                    });
+                    
+                    // Ouvrir/fermer l'item actuel
+                    if (!isActive) {
+                        item.classList.add('active');
+                        answer.classList.add('active');
+                    }
+                });
+            });
+
+            // Validation en temps réel
+            const inputs = contactForm.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        this.style.borderColor = 'var(--danger-color)';
+                    } else {
+                        this.style.borderColor = 'var(--gray-light)';
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    if (this.style.borderColor === 'var(--danger-color)' && this.value.trim()) {
+                        this.style.borderColor = 'var(--gray-light)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

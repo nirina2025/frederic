@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annuaire des Friteries - MonFritKot.be</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styles spécifiques à l'annuaire */
+        .annuaire-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 120px 0 80px;
+            text-align: center;
+            color: var(--light-color);
+        }
+        
+        .annuaire-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .annuaire-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .search-filters {
+            background: var(--light-color);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-label {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xs);
+            color: var(--dark-color);
+        }
+        
+        .filter-select {
+            padding: var(--spacing-sm);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .results-count {
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+        }
+        
+        .sort-options {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+        }
+        
+        .sort-btn {
+            background: var(--gray-light);
+            border: none;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .sort-btn.active,
+        .sort-btn:hover {
+            background: var(--primary-color);
+            color: var(--light-color);
+        }
+        
+        .friteries-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .pagination-btn {
+            background: var(--gray-light);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .pagination-btn.active,
+        .pagination-btn:hover {
+            background: var(--primary-color);
+            color: var(--light-color);
+        }
+        
+        .map-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            padding: var(--spacing-md);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-fast);
+            z-index: 1000;
+        }
+        
+        .map-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .friteries-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                <span>MonFritKot</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="annuaire.html" class="nav-link active">Annuaire</a>
+                <a href="galerie.html" class="nav-link">Galerie</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="#" class="nav-link login-btn">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="cart-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="cart-count">3</span>
+                </div>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="annuaire-hero">
+        <div class="container">
+            <h1>Annuaire des Friteries</h1>
+            <p>Découvrez toutes les friteries de Belgique avec leurs spécialités, horaires et avis clients</p>
+        </div>
+    </section>
+
+    <!-- Section Annuaire -->
+    <section class="annuaire-section">
+        <div class="container">
+            <!-- Filtres de recherche avancés -->
+            <div class="search-filters">
+                <h2 style="margin-bottom: var(--spacing-lg); text-align: center;">Recherche Avancée</h2>
+                
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Région</label>
+                        <select class="filter-select" id="regionFilter">
+                            <option value="">Toutes les régions</option>
+                            <option value="bruxelles">Bruxelles-Capitale</option>
+                            <option value="flandre">Flandre</option>
+                            <option value="wallonie">Wallonie</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Province</label>
+                        <select class="filter-select" id="provinceFilter">
+                            <option value="">Toutes les provinces</option>
+                            <option value="anvers">Anvers</option>
+                            <option value="brabant-flamand">Brabant flamand</option>
+                            <option value="flandre-occidentale">Flandre occidentale</option>
+                            <option value="flandre-orientale">Flandre orientale</option>
+                            <option value="limbourg">Limbourg</option>
+                            <option value="brabant-wallon">Brabant wallon</option>
+                            <option value="hainaut">Hainaut</option>
+                            <option value="liege">Liège</option>
+                            <option value="luxembourg">Luxembourg</option>
+                            <option value="namur">Namur</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Type</label>
+                        <select class="filter-select" id="typeFilter">
+                            <option value="">Tous les types</option>
+                            <option value="traditionnelle">Traditionnelle</option>
+                            <option value="moderne">Moderne</option>
+                            <option value="gourmet">Gourmet</option>
+                            <option value="bio">Bio</option>
+                            <option value="vegetarienne">Végétarienne</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Services</label>
+                        <select class="filter-select" id="serviceFilter">
+                            <option value="">Tous les services</option>
+                            <option value="livraison">Livraison</option>
+                            <option value="terrasse">Terrasse</option>
+                            <option value="parking">Parking</option>
+                            <option value="24h">Ouvert 24h/24</option>
+                            <option value="wifi">WiFi gratuit</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Note minimum</label>
+                        <select class="filter-select" id="ratingFilter">
+                            <option value="">Toutes les notes</option>
+                            <option value="4.5">4.5 étoiles et plus</option>
+                            <option value="4.0">4.0 étoiles et plus</option>
+                            <option value="3.5">3.5 étoiles et plus</option>
+                            <option value="3.0">3.0 étoiles et plus</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Gamme de prix</label>
+                        <select class="filter-select" id="priceFilter">
+                            <option value="">Tous les prix</option>
+                            <option value="€">€ (Économique)</option>
+                            <option value="€€">€€ (Modéré)</option>
+                            <option value="€€€">€€€ (Cher)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Distance</label>
+                        <select class="filter-select" id="distanceFilter">
+                            <option value="">Toutes distances</option>
+                            <option value="1">Moins de 1 km</option>
+                            <option value="5">Moins de 5 km</option>
+                            <option value="10">Moins de 10 km</option>
+                            <option value="25">Moins de 25 km</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">&nbsp;</label>
+                        <button class="btn-primary" id="applyFilters">
+                            <i class="fas fa-search"></i>
+                            Appliquer les filtres
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- En-tête des résultats -->
+            <div class="results-header">
+                <div class="results-count">
+                    <strong>247 friteries</strong> trouvées
+                </div>
+                
+                <div class="sort-options">
+                    <span>Trier par :</span>
+                    <button class="sort-btn active" data-sort="relevance">Pertinence</button>
+                    <button class="sort-btn" data-sort="rating">Note</button>
+                    <button class="sort-btn" data-sort="distance">Distance</button>
+                    <button class="sort-btn" data-sort="name">Nom</button>
+                </div>
+            </div>
+
+            <!-- Liste des friteries -->
+            <div class="friteries-list" id="friteriesList">
+                <!-- Friterie 1 -->
+                <div class="friterie-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=400&h=250&fit=crop" alt="Friterie Chez Marcel">
+                        <div class="card-badge">
+                            <i class="fas fa-crown"></i>
+                            Premium
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="card-status open">Ouvert</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Friterie Chez Marcel</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8 (127 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Rue de la Paix 15, 1000 Bruxelles</span>
+                            <span class="distance">0.8 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">Frites maison</span>
+                            <span class="specialty-tag">Sauce andalouse</span>
+                            <span class="specialty-tag">Mitraillette</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Appeler">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn" title="Itinéraire">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friterie 2 -->
+                <div class="friterie-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=250&fit=crop" alt="La Baraque à Frites">
+                        <div class="card-badge new">
+                            <i class="fas fa-sparkles"></i>
+                            Nouveau
+                        </div>
+                        <button class="favorite-btn active">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <div class="card-status closed">Fermé</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">La Baraque à Frites</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.2 (89 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Avenue Louise 234, 1050 Ixelles</span>
+                            <span class="distance">1.2 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">Bio</span>
+                            <span class="specialty-tag">Végétarien</span>
+                            <span class="specialty-tag">Sauce maison</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€€€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Appeler">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn" title="Itinéraire">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friterie 3 -->
+                <div class="friterie-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&h=250&fit=crop" alt="Friterie du Coin">
+                        <button class="favorite-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="card-status open">Ouvert 24h</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Friterie du Coin</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.6 (203 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Place Flagey 8, 1050 Ixelles</span>
+                            <span class="distance">2.1 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">24h/24</span>
+                            <span class="specialty-tag">Livraison</span>
+                            <span class="specialty-tag">Traditionnel</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Appeler">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn" title="Itinéraire">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friterie 4 -->
+                <div class="friterie-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&h=250&fit=crop" alt="Friterie des Marolles">
+                        <button class="favorite-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="card-status open">Ouvert</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Friterie des Marolles</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.3 (156 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Rue Haute 42, 1000 Bruxelles</span>
+                            <span class="distance">1.5 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">Authentique</span>
+                            <span class="specialty-tag">Terrasse</span>
+                            <span class="specialty-tag">Parking</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Appeler">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn" title="Itinéraire">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friterie 5 -->
+                <div class="friterie-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=250&fit=crop" alt="Frit'House">
+                        <div class="card-badge">
+                            <i class="fas fa-leaf"></i>
+                            Bio
+                        </div>
+                        <button class="favorite-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="card-status open">Ouvert</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Frit'House</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.7 (92 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chaussée d'Ixelles 123, 1050 Ixelles</span>
+                            <span class="distance">0.9 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">Bio</span>
+                            <span class="specialty-tag">Végétarien</span>
+                            <span class="specialty-tag">WiFi</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€€€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Appeler">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn" title="Itinéraire">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friterie 6 -->
+                <div class="friterie-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=400&h=250&fit=crop" alt="La Frite d'Or">
+                        <button class="favorite-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="card-status closed">Fermé</div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">La Frite d'Or</h3>
+                            <div class="card-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.1 (78 avis)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Boulevard Anspach 67, 1000 Bruxelles</span>
+                            <span class="distance">1.8 km</span>
+                        </div>
+                        
+                        <div class="card-specialties">
+                            <span class="specialty-tag">Traditionnel</span>
+                            <span class="specialty-tag">Emporter</span>
+                            <span class="specialty-tag">Rapide</span>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <div class="price-range">
+                                <span>€</span>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn" title="Appeler">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="action-btn" title="Itinéraire">
+                                    <i class="fas fa-directions"></i>
+                                </button>
+                                <button class="action-btn primary">
+                                    Voir détails
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">4</button>
+                <button class="pagination-btn">5</button>
+                <button class="pagination-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bouton toggle carte -->
+    <button class="map-toggle" id="mapToggle" title="Afficher sur la carte">
+        <i class="fas fa-map"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                        <span>MonFritKot</span>
+                    </div>
+                    <p class="footer-description">
+                        Votre guide de référence pour découvrir les meilleures friteries de Belgique.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="annuaire.html">Annuaire</a></li>
+                        <li><a href="galerie.html">Galerie</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Régions</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Bruxelles</a></li>
+                        <li><a href="#">Flandre</a></li>
+                        <li><a href="#">Wallonie</a></li>
+                        <li><a href="#">Toutes les villes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Recevez les dernières nouveautés</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Votre email">
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 MonFritKot.be - Tous droits réservés</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Mentions légales</a>
+                        <a href="#">Politique de confidentialité</a>
+                        <a href="#">CGU</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Script spécifique à l'annuaire
+        document.addEventListener('DOMContentLoaded', function() {
+            const sortBtns = document.querySelectorAll('.sort-btn');
+            const paginationBtns = document.querySelectorAll('.pagination-btn');
+            const applyFiltersBtn = document.getElementById('applyFilters');
+            const mapToggle = document.getElementById('mapToggle');
+
+            // Tri des résultats
+            sortBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sortBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const sortType = btn.dataset.sort;
+                    console.log('Tri par:', sortType);
+                    // Ici vous implémenteriez la logique de tri
+                });
+            });
+
+            // Pagination
+            paginationBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!btn.querySelector('i')) { // Si ce n'est pas une flèche
+                        paginationBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                    }
+                    // Ici vous implémenteriez la logique de pagination
+                });
+            });
+
+            // Application des filtres
+            applyFiltersBtn.addEventListener('click', () => {
+                const filters = {
+                    region: document.getElementById('regionFilter').value,
+                    province: document.getElementById('provinceFilter').value,
+                    type: document.getElementById('typeFilter').value,
+                    service: document.getElementById('serviceFilter').value,
+                    rating: document.getElementById('ratingFilter').value,
+                    price: document.getElementById('priceFilter').value,
+                    distance: document.getElementById('distanceFilter').value
+                };
+                
+                console.log('Filtres appliqués:', filters);
+                
+                // Animation du bouton
+                applyFiltersBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Recherche...';
+                
+                setTimeout(() => {
+                    applyFiltersBtn.innerHTML = '<i class="fas fa-search"></i> Appliquer les filtres';
+                    // Ici vous implémenteriez la logique de filtrage
+                }, 1500);
+            });
+
+            // Toggle carte
+            mapToggle.addEventListener('click', () => {
+                alert('Fonctionnalité de carte à implémenter avec Google Maps ou Leaflet');
+            });
+        });
+    </script>
+</body>
+</html>

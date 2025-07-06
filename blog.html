@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - MonFritKot.be</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styles spécifiques au blog */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            padding: 120px 0 80px;
+            text-align: center;
+            color: var(--light-color);
+        }
+        
+        .blog-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .blog-section {
+            padding: var(--spacing-xxl) 0;
+        }
+        
+        .blog-filters {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .blog-filter-btn {
+            background: var(--gray-light);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            color: var(--dark-color);
+        }
+        
+        .blog-filter-btn:hover,
+        .blog-filter-btn.active {
+            background: var(--primary-color);
+            color: var(--light-color);
+            transform: translateY(-2px);
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .blog-card {
+            background: var(--light-color);
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .blog-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+        
+        .blog-category {
+            position: absolute;
+            top: var(--spacing-md);
+            left: var(--spacing-md);
+            background: var(--primary-color);
+            color: var(--light-color);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .blog-content {
+            padding: var(--spacing-lg);
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.9rem;
+            color: var(--gray-medium);
+        }
+        
+        .blog-date {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .blog-title {
+            font-size: 1.3rem;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-sm);
+            color: var(--dark-color);
+            line-height: 1.4;
+        }
+        
+        .blog-excerpt {
+            color: var(--gray-dark);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .blog-tags {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+        
+        .blog-tag {
+            background: var(--gray-light);
+            color: var(--gray-dark);
+            padding: 2px var(--spacing-xs);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+        }
+        
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: var(--transition-fast);
+        }
+        
+        .read-more:hover {
+            color: var(--primary-dark);
+        }
+        
+        .featured-article {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            background: var(--light-color);
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .featured-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-content {
+            padding: var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-title {
+            font-size: 2rem;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+            color: var(--dark-color);
+        }
+        
+        .newsletter-signup {
+            background: var(--gray-light);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-xl);
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .newsletter-signup h3 {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-sm);
+            color: var(--dark-color);
+        }
+        
+        .newsletter-signup p {
+            color: var(--gray-dark);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .newsletter-form-large {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+            gap: var(--spacing-sm);
+        }
+        
+        .newsletter-form-large input {
+            flex: 1;
+            padding: var(--spacing-md);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+        }
+        
+        .newsletter-form-large input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .newsletter-form-large button {
+            background: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .newsletter-form-large button:hover {
+            background: var(--primary-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                height: 200px;
+            }
+            
+            .newsletter-form-large {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                <span>MonFritKot</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="annuaire.html" class="nav-link">Annuaire</a>
+                <a href="galerie.html" class="nav-link">Galerie</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="#" class="nav-link login-btn">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="cart-icon">
+                    <i class="fas fa-heart"></i>
+                    <span class="cart-count">3</span>
+                </div>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Blog MonFritKot</h1>
+            <p>Découvrez l'actualité des friteries, nos conseils et les dernières tendances culinaires belges</p>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <!-- Filtres -->
+            <div class="blog-filters">
+                <button class="blog-filter-btn active" data-category="all">
+                    <i class="fas fa-newspaper"></i> Tous les articles
+                </button>
+                <button class="blog-filter-btn" data-category="actualites">
+                    <i class="fas fa-bullhorn"></i> Actualités
+                </button>
+                <button class="blog-filter-btn" data-category="conseils">
+                    <i class="fas fa-lightbulb"></i> Conseils
+                </button>
+                <button class="blog-filter-btn" data-category="recettes">
+                    <i class="fas fa-utensils"></i> Recettes
+                </button>
+                <button class="blog-filter-btn" data-category="portraits">
+                    <i class="fas fa-user-friends"></i> Portraits
+                </button>
+            </div>
+
+            <!-- Article en vedette -->
+            <article class="featured-article">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=600&h=300&fit=crop" alt="Article en vedette">
+                </div>
+                <div class="featured-content">
+                    <div class="blog-category">Actualités</div>
+                    <h2 class="featured-title">Les friteries belges à l'honneur au Festival Gastronomique 2024</h2>
+                    <p class="blog-excerpt">
+                        Cette année, le Festival Gastronomique de Bruxelles met les friteries traditionnelles à l'honneur. 
+                        Découvrez comment ces établissements emblématiques continuent d'innover tout en préservant leurs traditions séculaires.
+                    </p>
+                    <div class="blog-meta">
+                        <div class="blog-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>15 Mars 2024</span>
+                        </div>
+                        <div class="blog-author">
+                            <i class="fas fa-user"></i>
+                            <span>Marie Dubois</span>
+                        </div>
+                    </div>
+                    <a href="#" class="read-more">
+                        Lire l'article complet
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Newsletter -->
+            <div class="newsletter-signup">
+                <h3>Restez informé</h3>
+                <p>Recevez nos derniers articles et découvertes directement dans votre boîte mail</p>
+                <form class="newsletter-form-large">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit">S'abonner</button>
+                </form>
+            </div>
+
+            <!-- Grille d'articles -->
+            <div class="blog-grid">
+                <!-- Article 1 -->
+                <article class="blog-card" data-category="conseils">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&h=200&fit=crop" alt="Comment choisir ses frites">
+                        <div class="blog-category">Conseils</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>12 Mars 2024</span>
+                            </div>
+                            <div class="blog-author">
+                                <i class="fas fa-user"></i>
+                                <span>Pierre Leroy</span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title">Comment reconnaître de bonnes frites ?</h3>
+                        <p class="blog-excerpt">
+                            Découvrez les secrets pour identifier des frites parfaites : couleur dorée, 
+                            croustillant extérieur, moelleux intérieur...
+                        </p>
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">frites</span>
+                                <span class="blog-tag">qualité</span>
+                            </div>
+                            <a href="#" class="read-more">
+                                Lire plus
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-card" data-category="portraits">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=200&fit=crop" alt="Portrait friteur">
+                        <div class="blog-category">Portraits</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>10 Mars 2024</span>
+                            </div>
+                            <div class="blog-author">
+                                <i class="fas fa-user"></i>
+                                <span>Sophie Martin</span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title">Marcel, 40 ans de passion pour la frite</h3>
+                        <p class="blog-excerpt">
+                            Rencontre avec Marcel Dubois, propriétaire de la friterie "Chez Marcel" 
+                            depuis quatre décennies. Un témoignage authentique...
+                        </p>
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">portrait</span>
+                                <span class="blog-tag">tradition</span>
+                            </div>
+                            <a href="#" class="read-more">
+                                Lire plus
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-card" data-category="recettes">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400&h=200&fit=crop" alt="Sauce andalouse maison">
+                        <div class="blog-category">Recettes</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>8 Mars 2024</span>
+                            </div>
+                            <div class="blog-author">
+                                <i class="fas fa-user"></i>
+                                <span>Chef Antoine</span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title">Recette de la sauce andalouse maison</h3>
+                        <p class="blog-excerpt">
+                            Apprenez à préparer la célèbre sauce andalouse comme dans les meilleures 
+                            friteries belges. Ingrédients et étapes détaillées...
+                        </p>
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">recette</span>
+                                <span class="blog-tag">sauce</span>
+                            </div>
+                            <a href="#" class="read-more">
+                                Lire plus
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="blog-card" data-category="actualites">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&h=200&fit=crop" alt="Nouvelles friteries">
+                        <div class="blog-category">Actualités</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>5 Mars 2024</span>
+                            </div>
+                            <div class="blog-author">
+                                <i class="fas fa-user"></i>
+                                <span>Rédaction</span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title">5 nouvelles friteries ouvrent leurs portes ce mois-ci</h3>
+                        <p class="blog-excerpt">
+                            Tour d'horizon des dernières ouvertures de friteries en Belgique. 
+                            Concepts innovants et traditions préservées au programme...
+                        </p>
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">ouverture</span>
+                                <span class="blog-tag">nouveauté</span>
+                            </div>
+                            <a href="#" class="read-more">
+                                Lire plus
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="blog-card" data-category="conseils">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=200&fit=crop" alt="Choisir sa friterie">
+                        <div class="blog-category">Conseils</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>3 Mars 2024</span>
+                            </div>
+                            <div class="blog-author">
+                                <i class="fas fa-user"></i>
+                                <span>Julie Moreau</span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title">Guide pour choisir sa friterie idéale</h3>
+                        <p class="blog-excerpt">
+                            Critères de sélection, points d'attention et astuces pour dénicher 
+                            la friterie qui correspond parfaitement à vos goûts...
+                        </p>
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">guide</span>
+                                <span class="blog-tag">choix</span>
+                            </div>
+                            <a href="#" class="read-more">
+                                Lire plus
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="blog-card" data-category="actualites">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=400&h=200&fit=crop" alt="Concours friteries">
+                        <div class="blog-category">Actualités</div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <div class="blog-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>1 Mars 2024</span>
+                            </div>
+                            <div class="blog-author">
+                                <i class="fas fa-user"></i>
+                                <span>Thomas Durand</span>
+                            </div>
+                        </div>
+                        <h3 class="blog-title">Concours de la meilleure friterie 2024</h3>
+                        <p class="blog-excerpt">
+                            Le grand concours annuel des friteries belges est lancé ! 
+                            Votez pour votre établissement préféré et tentez de gagner...
+                        </p>
+                        <div class="blog-footer">
+                            <div class="blog-tags">
+                                <span class="blog-tag">concours</span>
+                                <span class="blog-tag">vote</span>
+                            </div>
+                            <a href="#" class="read-more">
+                                Lire plus
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Bouton charger plus -->
+            <div class="section-footer">
+                <button class="btn-primary large" id="loadMoreBtn">
+                    Charger plus d'articles
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://images.unsplash.com/photo-1573821663912-6df460f9c684?w=50&h=50&fit=crop&crop=center" alt="MonFritKot Logo">
+                        <span>MonFritKot</span>
+                    </div>
+                    <p class="footer-description">
+                        Votre guide de référence pour découvrir les meilleures friteries de Belgique.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="annuaire.html">Annuaire</a></li>
+                        <li><a href="galerie.html">Galerie</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Régions</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Bruxelles</a></li>
+                        <li><a href="#">Flandre</a></li>
+                        <li><a href="#">Wallonie</a></li>
+                        <li><a href="#">Toutes les villes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Recevez les dernières nouveautés</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Votre email">
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 MonFritKot.be - Tous droits réservés</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Mentions légales</a>
+                        <a href="#">Politique de confidentialité</a>
+                        <a href="#">CGU</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Script spécifique au blog
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.blog-filter-btn');
+            const blogCards = document.querySelectorAll('.blog-card');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+            // Filtrage des articles
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.dataset.category;
+                    
+                    // Mise à jour des boutons actifs
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Filtrage des articles
+                    blogCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeInUp 0.5s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Bouton "Charger plus"
+            loadMoreBtn.addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Chargement...';
+                
+                setTimeout(() => {
+                    this.innerHTML = 'Charger plus d\'articles <i class="fas fa-plus"></i>';
+                    alert('Fonctionnalité de chargement à implémenter avec une vraie base de données');
+                }, 1500);
+            });
+
+            // Gestion de la newsletter
+            document.querySelector('.newsletter-form-large').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                if (email) {
+                    alert('Merci pour votre inscription à la newsletter !');
+                    this.querySelector('input[type="email"]').value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
