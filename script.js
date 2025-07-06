@@ -83,6 +83,11 @@ function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
     const locationInput = document.getElementById('locationInput');
 
+    // Vérifier si les éléments existent avant d'ajouter les event listeners
+    if (!searchBtn || !searchInput || !locationInput) {
+        return; // Sortir de la fonction si les éléments n'existent pas
+    }
+
     // Fonction de recherche
     function performSearch() {
         const searchTerm = searchInput.value.trim();
