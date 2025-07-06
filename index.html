@@ -19,10 +19,10 @@
             
             <div class="nav-menu" id="nav-menu">
                 <a href="#accueil" class="nav-link active">Accueil</a>
-                <a href="annuaire.html" class="nav-link">Annuaire</a>
-                <a href="galerie.html" class="nav-link">Galerie</a>
-                <a href="blog.html" class="nav-link">Blog</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="#annuaire" class="nav-link">Annuaire</a>
+                <a href="#galerie" class="nav-link">Galerie</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contact</a>
                 <a href="#" class="nav-link login-btn">
                     <i class="fas fa-user"></i>
                 </a>
@@ -388,10 +388,10 @@
             </div>
             
             <div class="section-footer">
-                <a href="annuaire.html" class="btn-primary large">
+                <button class="btn-primary large" onclick="showNotification('Fonctionnalité complète à venir', 'info')">
                     Voir toutes les friteries
                     <i class="fas fa-arrow-right"></i>
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -434,10 +434,10 @@
             </div>
             
             <div class="section-footer">
-                <a href="galerie.html" class="btn-primary large">
+                <button class="btn-primary large" onclick="showNotification('Galerie complète à venir', 'info')">
                     Voir toute la galerie
                     <i class="fas fa-images"></i>
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -497,10 +497,109 @@
             </div>
             
             <div class="section-footer">
-                <a href="blog.html" class="btn-primary large">
+                <button class="btn-primary large" onclick="showNotification('Blog complet à venir', 'info')">
                     Lire tous les articles
                     <i class="fas fa-newspaper"></i>
-                </a>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Contact</span>
+                <h2 class="section-title">Contactez-nous</h2>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Nos coordonnées</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Adresse</h4>
+                            <p>
+                                MonFritKot SPRL<br>
+                                Avenue Louise 123<br>
+                                1050 Bruxelles, Belgique
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Téléphone</h4>
+                            <p>
+                                +32 2 123 45 67<br>
+                                <small>Lundi - Vendredi : 9h - 18h</small>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Email</h4>
+                            <p>
+                                contact@monfritkot.be<br>
+                                <small>Réponse sous 24h</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Envoyez-nous un message</h3>
+                    
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">Prénom *</label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Nom *</label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Sujet *</label>
+                            <select id="subject" name="subject" class="form-select" required>
+                                <option value="">Choisissez un sujet</option>
+                                <option value="ajout-friterie">Ajouter ma friterie</option>
+                                <option value="modification">Modifier des informations</option>
+                                <option value="probleme-technique">Problème technique</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" class="form-textarea" rows="6" placeholder="Décrivez votre demande en détail..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Envoyer le message
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -519,7 +618,7 @@
                         <i class="fas fa-map-marked-alt"></i>
                         <h3>Carte Interactive</h3>
                         <p>Explorez toutes les friteries de Belgique sur notre carte interactive</p>
-                        <button class="btn-primary">
+                        <button class="btn-primary" onclick="showNotification('Carte interactive à venir', 'info')">
                             Ouvrir la carte
                             <i class="fas fa-external-link-alt"></i>
                         </button>
@@ -568,10 +667,10 @@
                     <h4>Navigation</h4>
                     <ul class="footer-links">
                         <li><a href="#accueil">Accueil</a></li>
-                        <li><a href="annuaire.html">Annuaire</a></li>
-                        <li><a href="galerie.html">Galerie</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#annuaire">Annuaire</a></li>
+                        <li><a href="#galerie">Galerie</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 
@@ -613,5 +712,18 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Initialiser le formulaire de contact
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    showNotification('Message envoyé avec succès !', 'success');
+                    this.reset();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
