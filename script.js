@@ -22,31 +22,33 @@ function initializeNavigation() {
 
     // Scroll effect sur la navbar
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        if (navbar && window.scrollY > 50) {
             navbar.classList.add('scrolled');
-        } else {
+        } else if (navbar) {
             navbar.classList.remove('scrolled');
         }
     });
 
     // Menu hamburger
-    hamburger.addEventListener('click', () => {
-        isMenuOpen = !isMenuOpen;
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-        
-        // Animation des barres du hamburger
-        const spans = hamburger.querySelectorAll('span');
-        if (isMenuOpen) {
-            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            spans[1].style.opacity = '0';
-            spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-        } else {
-            spans[0].style.transform = 'none';
-            spans[1].style.opacity = '1';
-            spans[2].style.transform = 'none';
-        }
-    });
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            // Animation des barres du hamburger
+            const spans = hamburger.querySelectorAll('span');
+            if (isMenuOpen) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+    }
 
     // Navigation smooth scroll
     navLinks.forEach(link => {
@@ -63,7 +65,7 @@ function initializeNavigation() {
                 }
                 
                 // Fermer le menu mobile
-                if (isMenuOpen) {
+                if (isMenuOpen && navMenu && hamburger) {
                     navMenu.classList.remove('active');
                     hamburger.classList.remove('active');
                     isMenuOpen = false;
@@ -83,7 +85,7 @@ function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
     const locationInput = document.getElementById('locationInput');
 
-    // Vérifier si les éléments existent avant d'ajouter les event listeners
+    // Vérifier que les éléments existent avant d'ajouter les event listeners
     if (!searchBtn || !searchInput || !locationInput) {
         return; // Sortir de la fonction si les éléments n'existent pas
     }
@@ -238,9 +240,12 @@ function initializeAnimations() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         scrollIndicator.addEventListener('click', () => {
-            document.querySelector('.about-section').scrollIntoView({
-                behavior: 'smooth'
-            });
+            const aboutSection = document.querySelector('.about-section');
+            if (aboutSection) {
+                aboutSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     }
 }
@@ -375,37 +380,40 @@ function initializeGPS() {
     const gpsBtn = document.getElementById('gpsBtn');
     const locationInput = document.getElementById('locationInput');
     
-    if (gpsBtn) {
-        gpsBtn.addEventListener('click', () => {
-            if (navigator.geolocation) {
-                // Animation de chargement
-                gpsBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-                gpsBtn.disabled = true;
-                
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const { latitude, longitude } = position.coords;
-                        
-                        // Simulation de géocodage inverse
-                        setTimeout(() => {
-                            locationInput.value = 'Bruxelles, 1000'; // Simulation
-                            gpsBtn.innerHTML = '<i class="fas fa-crosshairs"></i>';
-                            gpsBtn.disabled = false;
-                            
-                            showNotification('Position détectée', 'success');
-                        }, 1000);
-                    },
-                    (error) => {
+    // Vérifier que les éléments existent avant d'ajouter les event listeners
+    if (!gpsBtn || !locationInput) {
+        return; // Sortir de la fonction si les éléments n'existent pas
+    }
+    
+    gpsBtn.addEventListener('click', () => {
+        if (navigator.geolocation) {
+            // Animation de chargement
+            gpsBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            gpsBtn.disabled = true;
+            
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    
+                    // Simulation de géocodage inverse
+                    setTimeout(() => {
+                        locationInput.value = 'Bruxelles, 1000'; // Simulation
                         gpsBtn.innerHTML = '<i class="fas fa-crosshairs"></i>';
                         gpsBtn.disabled = false;
-                        showNotification('Impossible de détecter votre position', 'error');
-                    }
-                );
-            } else {
-                showNotification('Géolocalisation non supportée', 'error');
-            }
-        });
-    }
+                        
+                        showNotification('Position détectée', 'success');
+                    }, 1000);
+                },
+                (error) => {
+                    gpsBtn.innerHTML = '<i class="fas fa-crosshairs"></i>';
+                    gpsBtn.disabled = false;
+                    showNotification('Impossible de détecter votre position', 'error');
+                }
+            );
+        } else {
+            showNotification('Géolocalisation non supportée', 'error');
+        }
+    });
 }
 
 // Notifications
@@ -493,7 +501,8 @@ document.addEventListener('click', (e) => {
     if (e.target.closest('.action-btn')) {
         const btn = e.target.closest('.action-btn');
         const card = btn.closest('.friterie-card');
-        const friterieName = card.querySelector('.card-title').textContent;
+        const friterieNameEl = card.querySelector('.card-title');
+        const friterieName = friterieNameEl ? friterieNameEl.textContent : 'Friterie';
         
         if (btn.querySelector('.fa-phone')) {
             showNotification(`Appel vers ${friterieName}`, 'info');
